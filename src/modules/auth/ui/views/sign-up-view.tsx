@@ -32,7 +32,7 @@ export const SignUpView = () => {
     trpc.auth.register.mutationOptions({
       onSuccess: () => {
         router.push("/");
-        toast.success("Account created successfully");
+        toast.success("Logged in successfully");
         form.reset();
       },
       onError: (error) => {
@@ -76,7 +76,6 @@ export const SignUpView = () => {
                 </span>
               </Link>
               <Button
-                type="submit"
                 variant="ghost"
                 size="sm"
                 className="text-base border-none underline"
@@ -127,6 +126,7 @@ export const SignUpView = () => {
                   <FormControl>
                     <Input {...field} type="password" placeholder="password" />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />

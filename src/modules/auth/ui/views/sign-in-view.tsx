@@ -69,7 +69,6 @@ export const SignInView = () => {
                 </span>
               </Link>
               <Button
-                type="submit"
                 variant="ghost"
                 size="sm"
                 className="text-base border-none underline"
@@ -100,6 +99,7 @@ export const SignInView = () => {
                   <FormControl>
                     <Input {...field} type="password" placeholder="password" />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
