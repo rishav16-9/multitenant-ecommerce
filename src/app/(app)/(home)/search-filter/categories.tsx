@@ -1,14 +1,14 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { CategoryDrodown } from "./category-dropdown";
-import { customCategory } from "../types";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ListFilterIcon } from "lucide-react";
 import { CategoriesSidebar } from "./categories-sidebar";
+import { CategoriesGetManyOutput } from "@/modules/categories/types";
 
 interface Props {
-  data: customCategory[];
+  data: CategoriesGetManyOutput;
 }
 
 export const Categories = ({ data }: Props) => {
@@ -59,11 +59,7 @@ export const Categories = ({ data }: Props) => {
 
   return (
     <div className="relative w-full">
-      <CategoriesSidebar
-        open={isSidebaropen}
-        onOpenChange={setIsSidebarOpen}
-        data={data}
-      />
+      <CategoriesSidebar open={isSidebaropen} onOpenChange={setIsSidebarOpen} />
       {/* hidden dev to measure all time */}
       <div
         ref={measureRef}
@@ -86,7 +82,7 @@ export const Categories = ({ data }: Props) => {
         ref={containerRef}
         onMouseEnter={() => setIsAnyHovered(true)}
         onMouseLeave={() => setIsAnyHovered(false)}
-        className="flex flex-nowrap items-center"
+        className="flex flex-nowrap items-center justify-center"
       >
         {data.slice(0, visibleCount).map((category) => (
           <div key={category.id}>
