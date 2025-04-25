@@ -13,7 +13,7 @@ interface Props {
 
 const Layout = async ({ children }: Props) => {
   const queryCient = getQueryClient();
-  void queryCient.prefetchQuery(trpc.categories.getMany.queryOptions());
+  await queryCient.prefetchQuery(trpc.categories.getMany.queryOptions());
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
