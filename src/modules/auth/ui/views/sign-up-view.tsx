@@ -1,7 +1,20 @@
 "use client";
+import Link from "next/link";
+import { Poppins } from "next/font/google";
+import { useRouter } from "next/navigation";
+
 import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useTRPC } from "@/trpc/client";
+import { registerSchema } from "@/modules/auth/schema";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,16 +24,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { registerSchema } from "@/modules/auth/schema";
-import Link from "next/link";
-import { Poppins } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { useTRPC } from "@/trpc/client";
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["700"],
@@ -28,9 +31,11 @@ const poppins = Poppins({
 export const SignUpView = () => {
   const trpc = useTRPC();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const register = useMutation(
     trpc.auth.register.mutationOptions({
-      onSuccess: () => {
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
         router.push("/");
         toast.success("Logged in successfully");
         form.reset();
