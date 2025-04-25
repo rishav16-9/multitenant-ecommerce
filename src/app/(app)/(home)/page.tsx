@@ -3,8 +3,6 @@
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 
-export const dynamic = "force-dynamic";
-
 export default function Home() {
   const trpc = useTRPC();
   const { data } = useQuery(trpc.auth.session.queryOptions());
