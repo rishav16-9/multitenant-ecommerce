@@ -4,7 +4,7 @@ import { Categories } from "./categories";
 import { SearchInput } from "./search-input";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { DEFAILT_BG_COLOR } from "@/modules/home/constants";
+import { DEFAULT_BG_COLOR } from "@/modules/home/constants";
 import { BreadcrumbNavigation } from "./breadcrumb-navigation";
 
 export const SearchFilter = () => {
@@ -18,7 +18,7 @@ export const SearchFilter = () => {
   const activeCategoryData = data.find(
     (category) => category.slug === activeCategory
   );
-  const activeCategoryColor = activeCategoryData?.color || DEFAILT_BG_COLOR;
+  const activeCategoryColor = activeCategoryData?.color || DEFAULT_BG_COLOR;
   const activeCategoryName = activeCategoryData?.name;
   const activeSubcategory = params.subcategory as string | undefined;
   const activeSubcategoryName =
