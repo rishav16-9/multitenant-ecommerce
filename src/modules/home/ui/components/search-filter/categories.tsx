@@ -1,9 +1,11 @@
 "use client";
-import { cn } from "@/lib/utils";
-import { CategoryDrodown } from "./category-dropdown";
+import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
+
+import { cn } from "@/lib/utils";
 import { ListFilterIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CategoryDrodown } from "./category-dropdown";
 import { CategoriesSidebar } from "./categories-sidebar";
 import { CategoriesGetManyOutput } from "@/modules/categories/types";
 
@@ -12,15 +14,16 @@ interface Props {
 }
 
 export const Categories = ({ data }: Props) => {
+  const params = useParams();
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const viewAllRef = useRef<HTMLDivElement>(null);
-
   const [visibleCount, setVisibleCount] = useState(data.length);
   const [isAnyHovered, setIsAnyHovered] = useState(false);
   const [isSidebaropen, setIsSidebarOpen] = useState(false);
 
-  const activeCategory = "all";
+  const categoryParams = params.category as string | undefined;
+  const activeCategory = categoryParams || "all";
 
   const activeCategoryIndex = data.findIndex(
     (cat) => cat.slug === activeCategory
@@ -60,7 +63,7 @@ export const Categories = ({ data }: Props) => {
   return (
     <div className="relative w-full">
       <CategoriesSidebar open={isSidebaropen} onOpenChange={setIsSidebarOpen} />
-      {/* hidden dev to measure all time */}
+      {/* hidden div to measure all time */}
       <div
         ref={measureRef}
         className="absolute opacity-0 pointer-events-none flex"
@@ -82,7 +85,7 @@ export const Categories = ({ data }: Props) => {
         ref={containerRef}
         onMouseEnter={() => setIsAnyHovered(true)}
         onMouseLeave={() => setIsAnyHovered(false)}
-        className="flex flex-nowrap items-center justify-center"
+        className="flex flex-nowrap items-center"
       >
         {data.slice(0, visibleCount).map((category) => (
           <div key={category.id}>
