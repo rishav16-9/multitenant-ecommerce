@@ -37,7 +37,7 @@ export const SignUpSection = () => {
       onSuccess: async () => {
         await queryClient.invalidateQueries(trpc.auth.session.queryFilter());
         router.push("/");
-        toast.success("Logged in successfully");
+        toast.success("Account created successfully");
         form.reset();
       },
       onError: (error) => {
