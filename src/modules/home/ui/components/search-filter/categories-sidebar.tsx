@@ -48,9 +48,7 @@ export const CategoriesSidebar = ({
 
   const handleCategoryClick = (category: CategoriesGetManyOutput[1]) => {
     if (category.subCategories && category.subCategories.length > 0) {
-      setParentCategories(
-        category.subCategories as unknown as CategoriesGetManyOutput
-      );
+      setParentCategories(category.subCategories as CategoriesGetManyOutput);
       setSelectedCategories(category);
     } else {
       //this is a leaf category (no subcategories)
