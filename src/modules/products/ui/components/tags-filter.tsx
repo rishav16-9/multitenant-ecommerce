@@ -1,5 +1,5 @@
 import { Checkbox } from "@/components/ui/checkbox";
-import { DEFAULT_LIMIT } from "@/contants";
+import { DEFAULT_LIMIT } from "@/constants";
 import { useTRPC } from "@/trpc/client";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { LoaderIcon } from "lucide-react";
