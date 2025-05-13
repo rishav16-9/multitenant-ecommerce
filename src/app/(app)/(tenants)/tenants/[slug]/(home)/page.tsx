@@ -7,13 +7,13 @@ import { DEFAULT_LIMIT } from "@/constants";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 interface PageProps {
-  searchParamns: Promise<SearchParams>;
+  searchParams: Promise<SearchParams>;
   params: Promise<{ slug: string }>;
 }
 
-const Page = async ({ searchParamns, params }: PageProps) => {
+const Page = async ({ searchParams, params }: PageProps) => {
   const { slug } = await params;
-  const filters = await loadProductFilters(searchParamns);
+  const filters = await loadProductFilters(searchParams);
 
   const queryClient = getQueryClient();
   void queryClient.prefetchInfiniteQuery(
