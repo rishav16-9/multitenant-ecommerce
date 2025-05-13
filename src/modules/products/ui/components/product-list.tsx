@@ -6,12 +6,19 @@ import { ProductCard, ProductCardSkeleton } from "./product-card";
 import { DEFAULT_LIMIT } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { InboxIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ProductListProps {
   category?: string;
+  tenantSlug?: string;
+  narrowView?: boolean;
 }
 
-export const ProductList = ({ category }: ProductListProps) => {
+export const ProductList = ({
+  category,
+  tenantSlug,
+  narrowView,
+}: ProductListProps) => {
   const [filters] = useProductFilters();
   const trpc = useTRPC();
   const { data, hasNextPage, isPending, isFetchingNextPage, fetchNextPage } =
@@ -20,6 +27,7 @@ export const ProductList = ({ category }: ProductListProps) => {
         {
           ...filters,
           category,
+          tenantSlug,
           limit: DEFAULT_LIMIT,
         },
         {
@@ -39,7 +47,12 @@ export const ProductList = ({ category }: ProductListProps) => {
   }
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <div
+        className={cn(
+          "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4",
+          narrowView && "lg: grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
+        )}
+      >
         {data?.pages
           .flatMap((page) => page.docs)
           .map((product) => (
@@ -48,8 +61,8 @@ export const ProductList = ({ category }: ProductListProps) => {
               id={product.id}
               name={product.name}
               imageUrl={product.image?.url}
-              authorUsername={"antonio"}
-              authorImageUrl={undefined}
+              tenantSlug={product.tenant?.slug}
+              tenantImageUrl={product.tenant?.image?.url}
               reviewCount={20}
               reviewRating={4.2}
               price={product.price}
@@ -72,9 +85,14 @@ export const ProductList = ({ category }: ProductListProps) => {
   );
 };
 
-export const ProductListSkeleton = () => {
+export const ProductListSkeleton = ({ narrowView }: ProductListProps) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+    <div
+      className={cn(
+        "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4",
+        narrowView && "lg: grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
+      )}
+    >
       {Array.from({ length: DEFAULT_LIMIT }).map((_, index) => (
         <ProductCardSkeleton key={index} />
       ))}
