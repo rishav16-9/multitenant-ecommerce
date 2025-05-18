@@ -3,7 +3,7 @@ import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-export const chekoutRouter = createTRPCRouter({
+export const checkoutRouter = createTRPCRouter({
   getProducts: baseProcedure
     .input(
       z.object({
