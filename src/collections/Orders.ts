@@ -26,7 +26,7 @@ export const Orders: CollectionConfig = {
       hasMany: false,
     },
     {
-      name: "stripeCheckoutSesstionId",
+      name: "stripeCheckoutSessionId",
       type: "text",
       required: true,
     },

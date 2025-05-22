@@ -37,7 +37,7 @@ export async function POST(req: Request) {
         case "checkout.session.completed":
           data = event.data.object as Stripe.Checkout.Session;
           if (!data.metadata?.userId) {
-            throw new Error("Userid is requied");
+            throw new Error("Userid is required");
           }
           const user = await payload.findByID({
             collection: "users",
@@ -65,14 +65,13 @@ export async function POST(req: Request) {
             await payload.create({
               collection: "orders",
               data: {
-                stripeCheckoutSesstionId: data.id,
+                stripeCheckoutSessionId: data.id,
                 user: user.id,
                 product: item.price.product.metadata.id,
                 name: item.price.product.name,
               },
             });
           }
-          console.log("❤ Susccess")
           break;
         default:
           throw new Error(`Unhandle event: ${event.type}`);
