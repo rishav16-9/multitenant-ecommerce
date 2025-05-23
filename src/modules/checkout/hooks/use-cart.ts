@@ -40,12 +40,12 @@ export const useCart = (tenantSlug: string) => {
     },
     [addProduct, tenantSlug]
   );
-  
+
   const handleRemoveProduct = useCallback(
     (productId: string) => {
-      addProduct(tenantSlug, productId);
+      removeProduct(tenantSlug, productId);
     },
-    [addProduct, tenantSlug]
+    [removeProduct, tenantSlug]
   );
   return {
     productIds,

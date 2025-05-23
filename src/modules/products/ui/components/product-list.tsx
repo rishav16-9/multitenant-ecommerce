@@ -73,7 +73,7 @@ export const ProductList = ({
         {hasNextPage && (
           <Button
             disabled={isFetchingNextPage || isPending}
-            className="font-medim disabled:opacity-50 text-base bg-white"
+            className="font-medium disabled:opacity-50 text-base bg-white"
             variant="elevated"
             onClick={() => fetchNextPage()}
           >
