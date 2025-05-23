@@ -1,33 +1,17 @@
 "use client";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
-import { useProductFilters } from "../../hooks/use-product-filters";
-import { ProductCard, ProductCardSkeleton } from "./product-card";
 import { DEFAULT_LIMIT } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { InboxIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ProductCardSkeleton, ProductCard } from "./product-card";
 
-interface ProductListProps {
-  category?: string;
-  tenantSlug?: string;
-  narrowView?: boolean;
-}
-
-export const ProductList = ({
-  category,
-  tenantSlug,
-  narrowView,
-}: ProductListProps) => {
-  const [filters] = useProductFilters();
+export const ProductList = () => {
   const trpc = useTRPC();
   const { data, hasNextPage, isPending, isFetchingNextPage, fetchNextPage } =
     useSuspenseInfiniteQuery(
-      trpc.products.getMany.infiniteQueryOptions(
+      trpc.library.getMany.infiniteQueryOptions(
         {
-          ...filters,
-          category,
-          tenantSlug,
           limit: DEFAULT_LIMIT,
         },
         {
@@ -47,12 +31,7 @@ export const ProductList = ({
   }
   return (
     <>
-      <div
-        className={cn(
-          "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4",
-          narrowView && "lg: grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
-        )}
-      >
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
         {data?.pages
           .flatMap((page) => page.docs)
           .map((product) => (
@@ -65,7 +44,6 @@ export const ProductList = ({
               tenantImageUrl={product.tenant?.image?.url}
               reviewCount={20}
               reviewRating={4.2}
-              price={product.price}
             />
           ))}
       </div>
@@ -85,14 +63,9 @@ export const ProductList = ({
   );
 };
 
-export const ProductListSkeleton = ({ narrowView }: ProductListProps) => {
+export const ProductListSkeleton = () => {
   return (
-    <div
-      className={cn(
-        "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4",
-        narrowView && "lg: grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
-      )}
-    >
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
       {Array.from({ length: DEFAULT_LIMIT }).map((_, index) => (
         <ProductCardSkeleton key={index} />
       ))}
