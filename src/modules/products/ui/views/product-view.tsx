@@ -124,7 +124,7 @@ export const ProductView = ({ tenantSlug, productId }: ProductViewProps) => {
                     onClick={() => {
                       setIsCopied(true);
                       navigator.clipboard.writeText(window.location.href);
-                      toast.success("URL copied to clipboars");
+                      toast.success("URL copied to clipboard");
                       setTimeout(() => {
                         setIsCopied(false);
                       }, 1000);
@@ -144,7 +144,7 @@ export const ProductView = ({ tenantSlug, productId }: ProductViewProps) => {
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-medium">Ratings</h3>
                   <div className="flex items-center gap-x-1 font-medium">
-                    <StarIcon className="zide-4 fill-black" />
+                    <StarIcon className="size-4 fill-black" />
                     <p>({data.reviewRating})</p>
                     <p className="text-base">{data.reviewCount} ratings</p>
                   </div>
