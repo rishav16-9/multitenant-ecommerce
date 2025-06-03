@@ -4,6 +4,7 @@ import { TRPCError } from "@trpc/server";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { loginSchema, registerSchema } from "@/modules/auth/schema";
 import { generateAuthCookies } from "../utils";
+import { stripe } from "@/lib/stripe";
 
 export const authRouter = createTRPCRouter({
   session: baseProcedure.query(async ({ ctx }) => {
@@ -32,12 +33,22 @@ export const authRouter = createTRPCRouter({
           message: "Username already taken",
         });
       }
+
+      const account = await stripe.accounts.create({});
+
+      if(!account){
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Stripe account was not created"
+        })
+      }
+
       const tenant = await ctx.db.create({
         collection: "tenants",
         data: {
           name: input.username,
           slug: input.username,
-          stripeAccountId: "test",
+          stripeAccountId: account.id,
         },
       });
       await ctx.db.create({
