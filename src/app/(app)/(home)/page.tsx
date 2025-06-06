@@ -4,11 +4,11 @@ import type { SearchParams } from "nuqs/server";
 import { loadProductFilters } from "@/modules/products/search-params";
 import { ProductListView } from "@/modules/products/ui/views/product-list-view";
 import { DEFAULT_LIMIT } from "@/constants";
+import { Suspense } from "react";
 
 interface PageProps {
   searchParams: Promise<SearchParams>;
 }
-export const dynamic = "force-dynamic";
 
 const Page = async ({ searchParams }: PageProps) => {
   const filters = await loadProductFilters(searchParams);
@@ -21,7 +21,9 @@ const Page = async ({ searchParams }: PageProps) => {
   );
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ProductListView />
+      <Suspense fallback={<p>Loading ...</p>}>
+        <ProductListView />
+      </Suspense>
     </HydrationBoundary>
   );
 };
