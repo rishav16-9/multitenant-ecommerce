@@ -10,6 +10,7 @@ export const Products: CollectionConfig = {
       const tenant = req.user?.tenants?.[0]?.tenant as Tenant;
       return Boolean(tenant?.stripeDetailsSubmitted);
     },
+    delete: ({ req }) => isSuperAdmin(req.user),
   },
   admin: {
     useAsTitle: "name",
@@ -23,7 +24,7 @@ export const Products: CollectionConfig = {
     },
     {
       name: "description",
-      type: "text",
+      type: "richText",
     },
     {
       name: "price",
@@ -58,10 +59,29 @@ export const Products: CollectionConfig = {
     },
     {
       name: "content",
-      type: "textarea",
+      type: "richText",
       admin: {
         description:
           "Protected content visible to customers after purchase. Add products documentation, downloadable files, getting started guides, and bonus materials. Supports mardown formatting",
+      },
+    },
+    {
+      name: "isPrivate",
+      label: "private",
+      defaultValue: false,
+      type: "checkbox",
+      admin: {
+        description:
+          "If checked, this product will not be shown on the public storefront",
+      },
+    },
+    {
+      name: "isArchived",
+      label: "Archive",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        description: "If checked this product will be archives",
       },
     },
   ],
