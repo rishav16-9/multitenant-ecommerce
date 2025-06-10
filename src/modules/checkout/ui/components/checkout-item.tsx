@@ -36,6 +36,7 @@ export const CheckoutItem = ({
             alt={name}
             fill
             className="object-cover"
+            loading="lazy"
           />
         </div>
       </div>

@@ -30,6 +30,7 @@ export const ProductCard = ({
             alt={name}
             fill
             src={imageUrl || "/auth-bg.png"}
+            loading="lazy"
             className="object-cover border-b"
           />
         </div>
@@ -43,6 +44,7 @@ export const ProductCard = ({
                 width={16}
                 height={16}
                 className="rounded-full border shrink-0 size-[16px]"
+                loading="lazy"
               />
             )}
             <p className="text-sm underline font-medium">{tenantSlug}</p>
