@@ -11,6 +11,7 @@ interface PageProps {
     productId: string;
   }>;
 }
+export const dynamic = "force-dynamic";
 
 const Page = async ({ params }: PageProps) => {
   const { productId } = await params;
