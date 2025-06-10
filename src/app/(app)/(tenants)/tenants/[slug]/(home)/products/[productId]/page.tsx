@@ -10,6 +10,8 @@ interface PageProps {
   params: Promise<{ slug: string; productId: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 const Page = async ({ params }: PageProps) => {
   const { slug, productId } = await params;
   const queryClient = getQueryClient();
