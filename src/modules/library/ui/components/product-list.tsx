@@ -39,7 +39,7 @@ export const ProductList = () => {
               key={product.id}
               id={product.id}
               name={product.name}
-              imageUrl={product.image?.url}
+              imageUrl={product.image?.url || "/auth-bg.png"}
               tenantSlug={product.tenant?.slug}
               tenantImageUrl={product.tenant?.image?.url}
               reviewCount={product.reviewCount}
