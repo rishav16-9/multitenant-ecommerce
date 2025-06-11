@@ -23,7 +23,7 @@ export const CartButton = ({
         asChild
         className="flex-1 font-medium bg-white"
       >
-        <Link prefetch href={`/library/${productId}`}>
+        <Link prefetch href={`${process.env.NEXT_PUBLIC_APP_URL}/library/${productId}`}>
           View in Library
         </Link>
       </Button>

@@ -23,7 +23,7 @@ export const SearchInput = ({ disabled, defaultValue, onChange }: Props) => {
       onChange?.(searchValue);
     }, 500);
 
-    return clearTimeout(id);
+    return () => clearTimeout(id);
   }, [searchValue, onChange]);
   return (
     <div className="flex items-center gap-2 w-full">
