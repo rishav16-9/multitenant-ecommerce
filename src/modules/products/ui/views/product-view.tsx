@@ -46,7 +46,6 @@ export const ProductView = ({ tenantSlug, productId }: ProductViewProps) => {
             alt={data.name}
             fill
             className="object-cover"
-            loading="lazy"
           />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-6">

@@ -42,7 +42,6 @@ export const ProductCard = ({
             fill
             src={imageUrl || "/auth-bg.png"}
             className="object-cover border-b"
-            loading="lazy"
           />
         </div>
         <div className="flex flex-col items-start p-4 border-y gap-3 flex-1">
